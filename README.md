@@ -23,15 +23,15 @@
     * gfortran 5.2.0
     * ifort version 12.1.6
 
-    The following command compiles rhover and creates the executable './rhover' in the source directory:
-    `make´
+    The following command compiles rhOver and creates the executable './rhover' in the source directory:
+    `make`
 
 3. Run rhOver
 
     A variety of sample input files for rhover is given in the Examples/ folder.
     The rhover job can be started from the command line with the following command:
 
-    `/path/to/rhover inputfile.dy3 > output.log &´
+    `/path/to/rhover input.dy3 > output.log &`
 
     Note: 
-    The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited´ before running rhover, otherwise it can happen that rhover crashes during matrix algebra operations.
+    The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited` before running rhover, otherwise it can happen that rhover crashes during matrix algebra operations.
