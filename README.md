@@ -18,7 +18,7 @@
 	   ifort-serial		Intel Fortran Compiler
 	   ifort-omp		Intel Fortran Compiler with OpenMP parallelization
 
-    rhover was tested with the following compilers:
+    rhOver was tested with the following compilers:
     * gfortran 4.8.5
     * gfortran 5.2.0
     * ifort version 12.1.6
@@ -28,10 +28,10 @@
 
 3. Run rhOver
 
-    A variety of sample input files for rhover is given in the Examples/ folder.
-    The rhover job can be started from the command line with the following command:
+    A variety of sample input files for rhOver is given in the Examples/ folder.
+    The rhOver job can be started from the command line with the following command:
 
     `/path/to/rhover input.dy3 > output.log &`
 
     Note: 
-    The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited` before running rhover, otherwise it can happen that rhover crashes during matrix algebra operations.
+    The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited` before running rhOver, otherwise it can happen that rhOver crashes during matrix algebra operations.
