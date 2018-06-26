@@ -1,37 +1,37 @@
+# rhOver
 
-1. PREREQUISITES
+## Installation
 
-Development files and libraries of LAPACK and BLAS need to be installed to build rhover.
+1. Prerequisites
 
-2. COMPILATION
+   Development files and libraries of LAPACK and BLAS need to be installed to build rhOver.
 
-Select your Fortran compiler (gfortran or ifort) and the parallelization (serial, OpenMP) with the corresponding Makefile for your platform (only 64-bit supported):
+2. Compilation
 
-$> ln -s Makefiles/TARGET Makefile
+   Select your Fortran compiler (gfortran or ifort) and the parallelization (serial, OpenMP) with the corresponding Makefile for your platform (only 64-bit supported):
+   
+   `ln -s Makefiles/TARGET Makefile`
+    
+    where TARGET refers to the following available targets:
+	   gfortran-serial		GNU gfortran
+	   gfortran-omp		GNU gfortran with OpenMP parallelization
+	   ifort-serial		Intel Fortran Compiler
+	   ifort-omp		Intel Fortran Compiler with OpenMP parallelization
 
-where TARGET refers to the following available targets:
+    rhover was tested with the following compilers:
+    * gfortran 4.8.5
+    * gfortran 5.2.0
+    * ifort version 12.1.6
 
-	gfortran-serial		GNU gfortran
-	gfortran-omp		GNU gfortran with OpenMP parallelization
-	ifort-serial		Intel Fortran Compiler
-	ifort-omp		Intel Fortran Compiler with OpenMP parallelization
+    The following command compiles rhover and creates the executable './rhover' in the source directory:
+    `make´
 
-rhover was tested with the following compilers:
-- gfortran 4.8.5
-- gfortran 5.2.0
-- ifort version 12.1.6
+3. Run rhOver
 
-The following command compiles rhover and creates the executable './rhover' in the source directory:
+    A variety of sample input files for rhover is given in the Examples/ folder.
+    The rhover job can be started from the command line with the following command:
 
-$> make
+    `/path/to/rhover inputfile.dy3 > output.log &´
 
-3. RUN rhover
-
-A variety of sample input files for rhover is given in the Examples/ folder.
-The rhover job can be started from the command line with the following command:
-
-$> /path/to/rhover inputfile.dy3 > output.log &
-
-Note: 
-The stack limit should be set to 'unlimited' by running the command 'ulimit -s unlimited' before running rhover, otherwise it can happen that rhover crashes during matrix algebra operations.
-
+    Note: 
+    The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited´ before running rhover, otherwise it can happen that rhover crashes during matrix algebra operations.
