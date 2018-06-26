@@ -1,0 +1,10 @@
+#
+# Makefile for rhover
+# 
+
+# Compiler
+FC=ifort
+# compiler flags
+FLAGS= -fpp -heap-arrays -O2 -free -fopenmp
+
+include ./Makefiles/include.make

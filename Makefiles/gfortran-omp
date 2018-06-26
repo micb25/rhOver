@@ -1,0 +1,10 @@
+#
+# Makefile for rhover
+# 
+
+# Compiler
+FC=gfortran 
+# compiler flags
+FLAGS=-m64 -cpp -ffixed-line-length-none -ffree-line-length-none -fdefault-integer-8 -finit-local-zero -Ofast -mtune=native -march=native -ffast-math -march=native -mfpmath=sse -msse2 -ffast-math -g -fopenmp -Wunused
+
+include ./Makefiles/include.make
