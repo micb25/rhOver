@@ -19,8 +19,10 @@
 	   ifort-omp		Intel Fortran Compiler with OpenMP parallelization
 
     rhOver was tested with the following compilers:
+    * gfortran 4.4.6
     * gfortran 4.8.5
     * gfortran 5.2.0
+    * gfortran 7.3.1
     * ifort version 12.1.6
 
     The following command compiles rhOver and creates the executable './rhover' in the source directory:
