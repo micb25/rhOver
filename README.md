@@ -37,3 +37,9 @@
 
     Note: 
     The stack limit should be set to 'unlimited' by running the command `ulimit -s unlimited` before running rhOver, otherwise it can happen that rhOver crashes during matrix algebra operations.
+
+## Citation
+
+Please quote the usage of the rhOver program and any scientific results in any form obtained with it by the following reference:
+
+*rhOver: Determination of Magnetic Anisotropy and Related Properties for Dysprosium(III) Single-Ion Magnets by Semi-Empirical Approaches utilizing Hartree-Fock Wave Functions.* Michael Böhme, Winfried Plass, *J. Comput. Chem.* **2018**, *accepted*.
