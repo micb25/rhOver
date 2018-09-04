@@ -42,4 +42,4 @@
 
 Please quote the usage of the rhOver program and any scientific results in any form obtained with it by the following reference:
 
-*rhOver: Determination of Magnetic Anisotropy and Related Properties for Dysprosium(III) Single-Ion Magnets by Semi-Empirical Approaches utilizing Hartree-Fock Wave Functions.* Michael Böhme, Winfried Plass, *J. Comput. Chem.* **2018**, *accepted*.
+*rhOver: Determination of Magnetic Anisotropy and Related Properties for Dysprosium(III) Single-Ion Magnets by Semi-Empirical Approaches utilizing Hartree-Fock Wave Functions.* Michael Böhme, Winfried Plass, *J. Comput. Chem.* **2018**, *doi:10.1002/jcc.25565*.
