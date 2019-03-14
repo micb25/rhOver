@@ -18,7 +18,7 @@ SRC += grid_lebedev.f90 grid.f90 radialwf.f90 sievers.f90 coulomb.f90 util_cf.f9
 OBJ = $(SRC:.f90=.o)
 
 default:
-	$(MAKE) -j1 global_c.o cgto.o grid_lebedev.o grid.o coulomb.o
+	$(MAKE) -j1 global_c.o cgto.o grid_lebedev.o
 	$(MAKE) $(OBJ)
 	$(MAKE) -j1 $(TARGET)
 	
