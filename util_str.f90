@@ -43,7 +43,7 @@ subroutine print_header
 	write(*,*)
 	write(*,*) "                                   - * -                                     "
 	write(*,*)
-	write(*,*) "          written 2017-2019 by Michael Böhme - boehme.mic@gmail.com          "
+	write(*,*) "          written 2014-2019 by Michael Böhme - boehme.mic@gmail.com          "
 #ifdef __GFORTRAN__
 	write(*,*) "                     build date: ", __DATE__, " ", __TIME__
 #endif
