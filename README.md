@@ -23,6 +23,7 @@
     * gfortran 4.8.5
     * gfortran 5.2.0
     * gfortran 7.3.1
+    * gfortran 7.4.1
     * ifort version 12.1.6
 
     The following command compiles rhOver and creates the executable './rhover' in the source directory:
