@@ -491,7 +491,7 @@ subroutine parse_input_file(filename)
 					stop
 				end if
 				
-                                        OPCM = .TRUE.
+				OPCM = .TRUE.
                                         
 				read(uInp, *, iostat=iost) NCustomCharges
 				if ( ( NCustomCharges .lt. 1 ) .or. ( NCustomCharges .gt. iMaxAtoms ) ) then
@@ -1440,8 +1440,6 @@ program rhover
 		
 	end if
 	
-	OPCM = .FALSE.
-
 	if ( JobType .eq. 1 ) then
 		
 		write(*,'(/X,A/)') "> CALCULATING SINGLE EULER ROTATION ..."
@@ -1494,7 +1492,7 @@ program rhover
 	! prints the final results
 	call print_results
 	
-	if ( OGenXYZ .eqv. .TRUE. ) then
+	if ( ( OGenXYZ .eqv. .TRUE. ) .and. ( OPCM .eqv. .FALSE. ) ) then
 		call write_xyz_file(minRotX, minRotY, .FALSE., 0d0)
 	end if
 

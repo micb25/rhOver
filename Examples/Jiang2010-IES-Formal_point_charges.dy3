@@ -1,0 +1,34 @@
+rhOver
+
+ Title
+  [Dy(acac)3(H2O)2] (Jiang2010) with formal point charges
+
+ ! do a scan and then find the mininmum 
+ Job 
+  SCANOPT
+  
+ ! ab initio calculated reference axis
+ Reference
+  -0.440802 -0.888928  0.124498 
+
+ ! use the improved electrostatic approach
+ NoLFT
+
+ ! define the origin
+ DyIII
+   0.00000000   0.00000000   0.00000000
+
+ ! define the Mulliken point charges
+ PCM
+   9                                               ! number of charges
+   1.08250996   2.00887893   0.36999999  -0.33333  ! O
+  -1.06397996  -1.42001995  -1.51291994  -0.33333  ! O
+  -2.02053892   1.11206996  -0.34926999  -0.33333  ! O
+  -0.66533998  -1.90735993   1.18518996  -0.33333  ! O
+  -0.76254997   0.82637997   2.09716892  -0.33333  ! O
+   0.21421999   1.09557996  -2.10485892  -0.33333  ! O
+  -2.23925892   2.54747891   1.49713994  -0.33333  ! C
+   0.62120998   3.33760888  -1.51069994  -0.33333  ! C
+  -1.50150994  -3.43634887  -0.39119999  -0.33333  ! C
+
+End

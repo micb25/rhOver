@@ -29,8 +29,43 @@ subroutine Radial_4f_WF(r, RadWF)
 	double precision, intent(in) :: r
 	double precision, intent(out) :: RadWF
 !
-	call Radial_4f_WF_ANORCC(r, RadWF)
+	if ( OPCM .eqv. .TRUE. ) then
+		call Radial_4f_WF_FreemanWatson(r, RadWF)
+	else
+		call Radial_4f_WF_ANORCC(r, RadWF)
+	end if
 	
+end subroutine
+
+! *************************************************************************
+! * (renormalized) Radial 4f wave function for Dy(III):
+! *   A.J. Freeman, R.E. Watson, 
+! *   Phys. Rev., American Physical Society, 1962, 127, 2058--2075
+! *************************************************************************
+subroutine Radial_4f_WF_FreemanWatson(r, RadWF)
+        use global_c
+        implicit none
+!
+        double precision, intent(in) :: r
+        double precision, intent(out) :: RadWF
+        double precision, parameter :: FreemanWatsonNormFac = 1.000000063653808d0        
+!        
+
+        if ( r .gt. 0d0 ) then
+        
+                ! r**3 because P4f**2 = RadWF**2 * r**2
+                RadWF = FreemanWatsonNormFac * &
+                        ( 2480.4013d0 * dexp(-r*13.463d0) + &
+                          448.83699d0 * dexp(-r* 7.529d0) + &
+                          55.967002d0 * dexp(-r* 5.019d0) + &
+                          2.3524738d0 * dexp(-r* 2.762d0) ) * r**3
+                
+        else
+        
+                RadWF = 0d0
+                
+        end if
+        
 end subroutine
 
 subroutine Radial_4f_WF_ANORCC(r, RadWF)
@@ -71,7 +106,7 @@ function Radial_Expectation_Value_4f(k) result(res)
 !
 	integer, intent(in) :: k
 	double precision :: res
-	double precision, dimension(6) :: RadIntegral = &
+	double precision, dimension(6) :: FWIntegrals = &
 		(/ &
 			0.755478019325158d0, & ! < r^1 >
 			0.725518019723808d0, & ! < r^2 >
@@ -81,14 +116,13 @@ function Radial_Expectation_Value_4f(k) result(res)
 			5.101902744743668d0  & ! < r^6 >
 		/)
 !
-
 	select case ( k ) 
 	
 		case ( 0 )
 			res = 1d0
 		case ( 1:6 )
 		
-			res = RadIntegral(k)
+			res = FWIntegrals(k)
 		
 		case default
 			write(*,*) "ERROR! <r^k> value not implemented!"

@@ -542,7 +542,7 @@ subroutine calc_cf_energy_pcm(lrota, lrotb, lrotg, val)
 				end if
 			end do
 			
-			BWkq(k, q) = scval * StevMultFac(k) * au2rcm * dsqrt((2d0*dble(k)+1d0)/FourPi)**2 * OldRadInts(k)
+			BWkq(k, q) = scval * StevMultFac(k) * au2rcm * dsqrt((2d0*dble(k)+1d0)/FourPi)**2 * OldRadInts(k) * ( 1.0 - SternheimerShieldings(k) )
 			
 			if ( q .gt. 0 ) then
 				BWkq(k,-q) = (-1)**q * dconjg(BWkq(k, q))
@@ -561,7 +561,7 @@ subroutine calc_cf_energy_pcm(lrota, lrotb, lrotg, val)
 			BRkq(k, q) = dimag(BWkq(k, abs(q))) / StevLam(k, abs(q))
 		end do
 		do q = -k, k
-						ARkq(k, q) = BRkq(k, q) / StevMultFac(k)
+			ARkq(k, q) = BRkq(k, q) / StevMultFac(k)
 		end do
 	end do
 	

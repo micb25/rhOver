@@ -368,10 +368,10 @@ subroutine calc_potentials_pcm
 		GridPoints(i)%NucPotVal = 0d0
 		GridPoints(i)%ElecPotVal = 0d0
 		do j = 1, NCustomCharges
-		dist = dsqrt( (GridPoints(i)%x-PointCharges(j)%x+EDyX )**2 + (GridPoints(i)%y-PointCharges(j)%y+EDyY)**2 + (GridPoints(i)%z-PointCharges(j)%z+EDyZ )**2 )
-				if ( dist .gt. 1.0d-6 ) then
-					GridPoints(i)%ElecPotVal = GridPoints(i)%ElecPotVal - ( dble(PointCharges(j)%Charge) / dist )
-				end if
+			dist = dsqrt( (GridPoints(i)%x-PointCharges(j)%x+EDyX )**2 + (GridPoints(i)%y-PointCharges(j)%y+EDyY)**2 + (GridPoints(i)%z-PointCharges(j)%z+EDyZ )**2 )
+			if ( dist .gt. 1.0d-6 ) then
+				GridPoints(i)%ElecPotVal = GridPoints(i)%ElecPotVal - ( dble(PointCharges(j)%Charge) / dist )
+			end if
 		end do
 	end do
 	
