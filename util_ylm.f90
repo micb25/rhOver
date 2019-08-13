@@ -1,7 +1,7 @@
 !
 ! rhOver - a FORTRAN program to determine magnetic anisotropy and related 
 ! properties for dysprosium(III) single-ion magnets by semi-empirical approaches
-! Copyright (C) 2014-2018 Michael Böhme <boehme.mic@gmail.com>
+! Copyright (C) 2014-2019 Michael Böhme <boehme.mic@gmail.com>
 !
 ! Permission is hereby granted, free of charge, to any person obtaining a copy
 ! of this software and associated documentation files (the "Software"), to deal

@@ -22,53 +22,47 @@
 ! SOFTWARE.
 !
 
-! *************************************************************************
-! * generates c_k parameters from Stevens factors A2, A4, A6
-! *************************************************************************
-subroutine generate_coefficients
+subroutine cpot_calc_energy(alpha, beta, gamma, value)
 	use global_c
+	use data_mo
+	use data_grid
 	implicit none
 !
-	integer :: i, j
+	double precision, intent(in) :: alpha, beta, gamma
+	double precision, intent(out) :: value
+	integer :: i, k
+	double precision :: theta, RDyX, RDyY, RDyZ, GDyVal
+	double complex :: SphericalHarmonicY
 !
-	do i = 1, 8
-		coeff(i, 1) = 9d0 / dsqrt(4d0*pi)
-		do j = 2, 4
-			coeff(i, j) = StevensFactors_Dy(i, j-1)/dsqrt((4d0*pi)/(2d0*((j-1d0)*2d0)+1d0))
-		end do
-	end do
-	
-end subroutine
+	Energy_SUM = 0d0
 
-subroutine print_stevens_factors(verbose)
-	use global_c
-	implicit none
-!
-	logical, intent(in) :: verbose
-	integer :: i, j
-!
-	if ( verbose .eqv. .TRUE. ) then
-		write(*,*) "> STEVENS FACTORS FOR Dy(III):"
-		write(*,*)
-		call write_rline(65)
-		write(*,'(14X,A12,2X,A16,A16,A16)') '|JM> state', 'A2', 'A4', 'A6'
-		call write_rline(65)
-		do i = 1, 8
-			write(*,'(14X,A,I2,A,2X,3(F16.6))') '  | +/- ', (8-i)*2+1, '/2 > ', (StevensFactors_Dy(i, j), j=1, 3)
+	!$OMP PARALLEL 
+	!$OMP DO REDUCTION(+:Energy_SUM) PRIVATE(RDyX, RDyY, RDyZ, theta, GDyVal, k) SCHEDULE(dynamic)
+	do i = 1, NLGP
+
+		call rotate_euler_3d_inv(alpha, beta, gamma, GridPoints(i)%x, GridPoints(i)%y, GridPoints(i)%z, RDyX, RDyY, RDyZ)
+
+		! avoid NaN due to numerical noise
+		if ( RDyZ / GridPoints(i)%dist .gt. 1d0 ) then
+			theta = dacos(  1d0 )
+		else if ( RDyZ / GridPoints(i)%dist .lt. -1d0 ) then
+			theta = dacos( -1d0 )
+		else
+			theta = dacos( RDyZ / GridPoints(i)%dist )
+		end if
+
+		GDyVal = coeff(mJ, 1) * real(SphericalHarmonicY(0, 0, theta, 0d0))
+		do k = 2, 4
+			GDyVal = GDyVal + coeff(mJ, k) * real(SphericalHarmonicY(2*(k-1), 0, theta, 0d0))
 		end do
-		call write_rline(65)
-		write(*,*)
-		
-		write(*,*) "> GENERATED COEFFICIENTS FOR SPHERICAL HARMONICS:"
-		write(*,*)
-		call write_rline(75)
-		write(*,'(8X,A,4A15)') '|JM> state', 'c(0)', 'c(2)', 'c(4)', 'c(6)'
-		call write_rline(75)
-		do i = 1, 8
-			write(*,'(4X,A,I2,A,4(F15.6))') '  | +/- ',(8-i)*2+1, '/2 > ', ( coeff(i, j), j=1, 4)
-		end do	
-		call write_rline(75)
-		write(*,*)
-	end if
-	
+
+		Energy_SUM = Energy_SUM + GDyVal * FourPi * GridPoints(i)%RadWFdV * ( GridPoints(i)%ElecPotVal - GridPoints(i)%NucPotVal )
+        
+	end do
+	!$OMP END DO NOWAIT
+	!$OMP BARRIER
+	!$OMP END PARALLEL
+
+	value = Energy_SUM
+
 end subroutine
