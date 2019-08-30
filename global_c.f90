@@ -43,6 +43,7 @@ module global_c
      character (len=sMaxBuffer) :: OLFile
      character (len=sMaxBuffer) :: MOFile
      character (len=sMaxBuffer) :: JobTitle, SHostname, SWorkDir
+     character (len=sMaxBuffer) :: GPFile
      
      double precision :: SphereRad = 1d0 / au2pm
      double precision :: DistMin = -0.01d0
@@ -78,7 +79,7 @@ module global_c
      logical :: OOldRInts, OPrintBasis, OPrintMulliken, OCFOnly, OIESMode, ODelete4f, OExpert
      logical :: OSkipMom, OLDAX, OMixedMode, ODeleteAll
      logical :: OPCM, OSternheimer
-     logical :: OPotCorr
+     logical :: OPotCorr, OExportGPs
      
      ! LAPACK
      logical :: LAPACKInit = .FALSE.

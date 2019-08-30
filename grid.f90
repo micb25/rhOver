@@ -272,6 +272,34 @@ subroutine save_DEPP(filename)
 
 end subroutine
 
+subroutine save_GPs(filename)
+	use global_c
+	use data_mo
+	use data_grid
+	implicit none
+!
+	character (len=sMaxBuffer), intent(in) :: filename
+	integer :: i
+!	
+	write(*,*) "   SAVING DEPP GRID POINTS ..."
+	write(*,*)
+	
+	open(unit=uPotF, file=filename,action='write', status='replace',form='formatted')
+	
+	write(uPotF, *) NLGP
+	
+	do i = 1, NLGP
+		write(uPotF, '(3E23.15)') GridPoints(i)%x * au2pm, GridPoints(i)%y * au2pm, GridPoints(i)%z * au2pm
+	end do
+	
+	close(uPotF)
+	
+	write(*,'(A35,A)') "data written to file: ", filename
+	write(*,*)
+	call write_done
+
+end subroutine
+
 function load_DEPP(filename) result(res)
 	use global_c
 	use data_mo

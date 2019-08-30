@@ -382,6 +382,11 @@ subroutine parse_input_file(filename)
 					write(*,*) "ERROR! Invalid value for 'GRID'!"
 					stop
 				end if
+			
+			else if ( sLine == "SAVEGRIDPOINTS" ) then
+			
+				OExportGPs = .TRUE.
+				
 			else if ( sLine == "LFTCUTOFF" ) then
 			
 				i = i + 1
@@ -598,6 +603,7 @@ subroutine parse_input_file(filename)
 	XFilenameMin = trim(adjustl(InpFile))//".xyz"
 	OLFile = trim(adjustl(InpFile))//".dat"  
 	DEPPFile = trim(adjustl(InpFile))//".depp"
+	GPFile = trim(adjustl(InpFile))//".grid.dat"
 	
 	! convert angstrom to a.u.
 	if ( OAngstrom .eqv. .TRUE. ) then
@@ -728,6 +734,7 @@ subroutine set_default_values
 	OPotCorr      = .FALSE.
 	OPCM          = .FALSE.
 	OSternheimer  = .FALSE.
+	OExportGPs    = .FALSE.
 	
 #ifdef _OPENMP
 	omp_threads   = omp_get_max_threads()
@@ -1426,6 +1433,10 @@ program rhover
 		
 		if ( ONoDEPPFile .eqv. .FALSE. ) then
 			call save_DEPP(DEPPFile)
+		end if
+		
+		if ( OExportGPs .eqv. .TRUE. ) then
+			call save_GPs(GPFile)
 		end if
 		
 		! calculates ligand density and Slater-X, if necessary
