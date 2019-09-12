@@ -289,7 +289,7 @@ subroutine save_GPs(filename)
 	write(uPotF, *) NLGP
 	
 	do i = 1, NLGP
-		write(uPotF, '(3E23.15)') GridPoints(i)%x * au2pm, GridPoints(i)%y * au2pm, GridPoints(i)%z * au2pm
+		write(uPotF, '(3E23.15)') GridPoints(i)%x, GridPoints(i)%y, GridPoints(i)%z
 	end do
 	
 	close(uPotF)
