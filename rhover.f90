@@ -1429,10 +1429,10 @@ program rhover
 			! calculates the electrostatic potential
 			call calc_potentials_nuc
 			call calc_potentials_anal_elec
-		end if
 		
-		if ( ONoDEPPFile .eqv. .FALSE. ) then
-			call save_DEPP(DEPPFile)
+			if ( ONoDEPPFile .eqv. .FALSE. ) then
+				call save_DEPP(DEPPFile)
+			end if
 		end if
 		
 		if ( OExportGPs .eqv. .TRUE. ) then
