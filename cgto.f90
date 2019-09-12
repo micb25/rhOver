@@ -194,13 +194,13 @@ subroutine check_ghost_atoms
 				
 			end if
 		end do
-	else
-		do j = 1, NumCGTO
-			if ( ( Atoms(CGTOs(j)%atomid)%dist .lt. 0.01d0 ) ) then
-			
-				Atoms(CGTOs(j)%atomid)%ghost = .TRUE.
-			end if
-		end do
+! 	else
+! 		do j = 1, NumCGTO
+! 			if ( ( Atoms(CGTOs(j)%atomid)%dist .lt. 0.01d0 ) ) then
+! 			
+! 				Atoms(CGTOs(j)%atomid)%ghost = .TRUE.
+! 			end if
+! 		end do
 	end if
 	
 	
@@ -583,7 +583,6 @@ subroutine read_molden_file(filename)
 		EDyX = Atoms(CAtomID)%x
 		EDyY = Atoms(CAtomID)%y
 		EDyZ = Atoms(CAtomID)%z
-		Atoms(CAtomID)%skip = .TRUE.
 	end if
 	
 	do i = 1, NA
