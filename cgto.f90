@@ -1239,7 +1239,11 @@ subroutine calc_density_point_dmat4(x, y, z, rho)
 	
 	do i = 1, NumCGTO
 		do j = 1, NumCGTO
-			rho = rho + 2d0 * cgtoval(i) * cgtoval(j) * D_CGTO(i, j) 
+			if ( OUHF .eqv. .FALSE. ) then
+				rho = rho + 2d0 * cgtoval(i) * cgtoval(j) * D_CGTO(i, j) 
+			else
+				rho = rho + 1d0 * cgtoval(i) * cgtoval(j) * D_CGTO(i, j) 
+			end if
 		end do
 	end do 
 	
@@ -1954,11 +1958,7 @@ subroutine calc_mulliken_charges(verbose)
 			end if
 		end do
 		
-		if ( OUHF .eqv. .FALSE. ) then
-			Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 2d0
-		else
-			Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 1d0
-		end if
+		Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 2d0
 		
 		if ( NCustomCharges .eq. 0 ) then
 			fCharge = Atoms(i)%mulliken

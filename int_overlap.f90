@@ -154,7 +154,7 @@ subroutine calc_overlap_matrix(silent)
 #else
 							!$OMP ATOMIC
 #endif
-							D_CGTO(k1, k2) = D_CGTO(k1, k2) + MOs(k)%mocoeff(k1) * MOs(k)%mocoeff(k2) / &
+							D_CGTO(k1, k2) = D_CGTO(k1, k2) + MOs(k)%occup * 0.5 * MOs(k)%mocoeff(k1) * MOs(k)%mocoeff(k2) / &
 								 ( (dble(PGTOs(i)%cgtonpgto)) * ( dble(PGTOs(j)%cgtonpgto)) )
 #if ( __GFORTRAN__ && __GNUC__ < 5 )
 							!$OMP END CRITICAL
