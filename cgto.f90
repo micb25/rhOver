@@ -866,7 +866,7 @@ subroutine print_pgto_info
 		stype = adjustr(stype)
 		subtype = adjustr(subtype)
 		
-		write(*,'(8X,I5,2I8,6X,I1,A1,A8,2F16.6)') i, PGTOs(i)%cgtoid, PGTOs(i)%atomid, PGTOs(i)%n, stype, subtype, PGTOs(i)%coeff_alpha, PGTOs(i)%coeff
+		write(*,'(8X,I5,2I8,5X,I2,A1,A8,2F16.6)') i, PGTOs(i)%cgtoid, PGTOs(i)%atomid, PGTOs(i)%n, stype, subtype, PGTOs(i)%coeff_alpha, PGTOs(i)%coeff
 		
 	end do
 
@@ -968,7 +968,7 @@ subroutine print_cgto_info
 		stype = adjustr(stype)
 		subtype = adjustr(subtype)
 		
-		write(*,'(48X,I5,I8,6X,I1,A1,A8)') i, CGTOs(i)%atomid, CGTOs(i)%n, stype, subtype
+		write(*,'(48X,I5,I8,5X,I2,A1,A8)') i, CGTOs(i)%atomid, CGTOs(i)%n, stype, subtype
 		
 	end do
 
