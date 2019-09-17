@@ -80,6 +80,7 @@ module global_c
      logical :: OSkipMom, OLDAX, OMixedMode, ODeleteAll
      logical :: OPCM, OSternheimer
      logical :: OPotCorr, OExportGPs
+     logical :: OUHF
      
      ! LAPACK
      logical :: LAPACKInit = .FALSE.

@@ -492,6 +492,12 @@ subroutine read_molden_file(filename)
 								MOs(NMO)%motype = 1
 							else
 								MOs(NMO)%motype = 2
+								if ( OUHF .eqv. .FALSE. ) then
+									OUHF = .TRUE.
+									write(*,*)
+									write(*,'(7X,A)') "An UHF/UKS wave function was found!"
+									write(*,*)
+								end if
 							end if
 							
 							line = line + 1
