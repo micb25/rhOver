@@ -1954,7 +1954,12 @@ subroutine calc_mulliken_charges(verbose)
 			end if
 		end do
 		
-		Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 2d0
+		if ( OUHF .eqv. .FALSE. ) then
+			Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 2d0
+		else
+			Atoms(i)%mulliken = Atoms(i)%charge - TotalDens * 1d0
+		end if
+		
 		if ( NCustomCharges .eq. 0 ) then
 			fCharge = Atoms(i)%mulliken
 		else
