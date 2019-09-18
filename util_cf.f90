@@ -542,7 +542,11 @@ subroutine calc_cf_energy_pcm(lrota, lrotb, lrotg, val)
 				end if
 			end do
 			
-			BWkq(k, q) = scval * StevMultFac(k) * au2rcm * dsqrt((2d0*dble(k)+1d0)/FourPi)**2 * OldRadInts(k) * ( 1.0 - SternheimerShieldings(k) )
+			if ( OSternheimer .eqv. .TRUE.  ) then
+				BWkq(k, q) = scval * StevMultFac(k) * au2rcm * dsqrt((2d0*dble(k)+1d0)/FourPi)**2 * OldRadInts(k) * ( 1.0 - SternheimerShieldings(k) )
+			else
+				BWkq(k, q) = scval * StevMultFac(k) * au2rcm * dsqrt((2d0*dble(k)+1d0)/FourPi)**2 * OldRadInts(k) 
+			end if
 			
 			if ( q .gt. 0 ) then
 				BWkq(k,-q) = (-1)**q * dconjg(BWkq(k, q))
