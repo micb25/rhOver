@@ -479,10 +479,7 @@ subroutine parse_input_file(filename)
 			  
 				OExpert = .TRUE.
 			
-			else if ( sLine == "POTCORR" ) then
-			
-                                        OPotCorr = .TRUE.
-			
+
 			else if ( sLine == "NODEPPFILE" ) then
 			  
 				ONoDEPPFile = .TRUE.
@@ -739,7 +736,6 @@ subroutine set_default_values
 	OSkipMom      = .TRUE.
 	OLDAX         = .FALSE.
 	OMixedMode    = .TRUE.
-	OPotCorr      = .FALSE.
 	OPCM          = .FALSE.
 	OSternheimer  = .FALSE.
 	OExportGPs    = .FALSE.

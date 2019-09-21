@@ -79,7 +79,7 @@ module global_c
      logical :: OOldRInts, OPrintBasis, OPrintMulliken, OCFOnly, OIESMode, ODelete4f, OExpert
      logical :: OSkipMom, OLDAX, OMixedMode, ODeleteAll
      logical :: OPCM, OSternheimer
-     logical :: OPotCorr, OExportGPs
+     logical :: OExportGPs
      logical :: OUHF
      
      ! LAPACK
