@@ -532,7 +532,7 @@ subroutine parse_input_file(filename)
 				i = i + 1
 				
 				i = i + 1
-				read(uInp,*, iostat=iost) EnergyScalingFactors(2), EnergyScalingFactors(4), EnergyScalingFactors(6)
+				read(uInp,*, iostat=iost) LFPScalingFactors(2), LFPScalingFactors(4), LFPScalingFactors(6)
 			
 			else if ( sLine == "MJ" ) then
 			  
@@ -716,10 +716,10 @@ subroutine set_default_values
 	nGrid         =       3
 	MaxKRank      =       6
 	
-	EnergyScalingFactors = 0d0
-	EnergyScalingFactors(2) = 1d0
-	EnergyScalingFactors(4) = 1d0
-	EnergyScalingFactors(6) = 1d0
+	LFPScalingFactors = 0d0
+	LFPScalingFactors(2) = 1d0
+	LFPScalingFactors(4) = 1d0
+	LFPScalingFactors(6) = 1d0
 
 	OVerbose      = .FALSE.
 	OMagVec       = .FALSE.

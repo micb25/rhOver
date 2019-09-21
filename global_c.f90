@@ -102,7 +102,7 @@ module global_c
      double precision, dimension(0:6,-6:6) :: ARkq, BRkq
      double complex, dimension(0:6,-6:6) :: BWkq
      integer :: MaxKRank
-     double precision, dimension(0:6) :: EnergyScalingFactors
+     double precision, dimension(0:6) :: LFPScalingFactors
      ! mJ coefficients
      double precision, dimension(8,4) :: coeff
      

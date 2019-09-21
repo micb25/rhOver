@@ -431,7 +431,7 @@ subroutine calc_cf_energy_grid(lrota, lrotb, lrotg, val)
 				end if
 			end do
 			
-			BWkq(k, q) = dsqrt((2d0*dble(k)+1d0)/FourPi) * NumberOf4fElectrons * StevMultFac(k) * au2rcm * scval * EnergyScalingFactors(k)
+			BWkq(k, q) = dsqrt((2d0*dble(k)+1d0)/FourPi) * NumberOf4fElectrons * StevMultFac(k) * au2rcm * scval * LFPScalingFactors(k)
 			if ( q .gt. 0 ) then
 				BWkq(k,-q) = (-1)**q * dconjg(BWkq(k, q))
 			end if
@@ -640,9 +640,9 @@ subroutine calc_cf_energies_final(lrota, lrotb, lrotg)
 		end do
 		write(*,*)
 		
-		write(*,'(A35)') "Scaling factors: "
+		write(*,'(A35)') "LFP scaling factors: "
 		do l = 2, 6, 2
-			write(*,'(A31,I1,A,F14.8)') "f_", l," = " , EnergyScalingFactors(l)
+			write(*,'(A31,I1,A,F14.8)') "f_", l," = " , LFPScalingFactors(l)
 		end do
 		write(*,*)
 
