@@ -463,9 +463,17 @@ subroutine parse_input_file(filename)
 			  
 				OPruning = .FALSE.
 				
+			else if ( sLine == "GRIDPRUNING" ) then
+			  
+				OPruning = .TRUE.
+				
 			else if ( sLine == "NORANDOMROT" ) then
 			  
 				ORandRot = .FALSE.
+				
+			else if ( sLine == "RANDOMROT" ) then
+			  
+				ORandRot = .TRUE.
 				
 			else if ( sLine == "EXPERT" ) then
 			  
@@ -721,7 +729,7 @@ subroutine set_default_values
 	OGenPotE      = .TRUE.
 	OGenXYZ       = .TRUE.
 	OPruning      = .TRUE.
-	ORandRot      = .TRUE.
+	ORandRot      = .FALSE.
 	ONoDEPPFile   = .FALSE.
 	OPrintBasis   = .FALSE.
 	OPrintMulliken= .FALSE.
