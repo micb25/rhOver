@@ -187,7 +187,6 @@ subroutine spherical_dy_grid_init
 
 			  if ( OVerbose .eqv. .TRUE. ) then
 				write(*,'(3X,2F11.4,F16.6,F9.2,A,F14.6,I12)') ri, ri*au2pm, totaldens, totaldens/NumberOf4fElectrons*100d0,"%", shelldens, i
-!				 write(*,'(3X,3F22.16)') 0d0, 0d0, ri
 			  endif
 			  
 		end if
@@ -600,7 +599,7 @@ subroutine calc_potentials_anal_elec
 #else
 		!$OMP ATOMIC
 #endif
-		cprogress = cprogress + 1		
+		cprogress = cprogress + 1
 #if ( __GFORTRAN__ && __GNUC__ < 5 )
 		!$OMP END CRITICAL
 #else
@@ -672,70 +671,63 @@ function calc_anal_elec_pot_point(ox, oy, oz) result(res)
 				
 				do i = CGTOs(ic)%npgto_beg, CGTOs(ic)%npgto_beg + CGTOs(ic)%npgto - 1
 				
-					pprefac = prefac * PGTOs(i)%coeff_d						 
+					pprefac = prefac * PGTOs(i)%coeff_d
 					if ( abs(pprefac) .gt. 1d-8 ) then
 					
 						do j = CGTOs(jc)%npgto_beg, CGTOs(jc)%npgto_beg + CGTOs(jc)%npgto - 1
 						
-								ppprefac = pprefac * PGTOs(j)%coeff_d 
-						
-								gamma = PGTOs(i)%coeff_alpha + PGTOs(j)%coeff_alpha
-								ssval = 2d0*pi/gamma * dexp( -PGTOs(i)%coeff_alpha*PGTOs(j)%coeff_alpha * r2 / gamma )
-								pppprefac = ppprefac * ssval
+							ppprefac = pprefac * PGTOs(j)%coeff_d 
+					
+							gamma = PGTOs(i)%coeff_alpha + PGTOs(j)%coeff_alpha
+							ssval = 2d0*pi/gamma * dexp( -PGTOs(i)%coeff_alpha*PGTOs(j)%coeff_alpha * r2 / gamma )
+							pppprefac = ppprefac * ssval
+							
+							if ( abs(pppprefac) .gt. 1d-10 ) then
+							
+								do dxyz = 1, 3
+									PAB(dxyz) = ( PGTOs(i)%coeff_alpha * PA(dxyz) + PGTOs(j)%coeff_alpha * PB(dxyz) ) / gamma
+								end do
 								
-								if ( abs(pppprefac) .gt. 1d-10 ) then
-								
-									do dxyz = 1, 3
-										PAB(dxyz) = ( PGTOs(i)%coeff_alpha * PA(dxyz) + PGTOs(j)%coeff_alpha * PB(dxyz) ) / gamma
+								C  = (/ ox+EDyX, oy+EDyY, oz+EDyZ /)
+								CValMaxDim = 0
+								cpr2 = 0d0
+								GVal = 0d0
+								do dxyz = 1, 3
+									l1 = pgto_get_l(PGTOs(i)%shelltype, PGTOs(i)%subtype, dxyz)
+									l2 = pgto_get_l(PGTOs(j)%shelltype, PGTOs(j)%subtype, dxyz)
+									cpr2 = cpr2 + ( PAB(dxyz) - C(dxyz) )**2
+									
+									do k = 0, l1+l2
+										GVal(k+1, dxyz) = G_binom_factors(k, l1, l2, PA(dxyz), PB(dxyz), C(dxyz), PAB(dxyz), gamma)
+										if ( CValMaxDim(dxyz) .lt. k ) then
+											CValMaxDim(dxyz) = k
+										end if
 									end do
 									
-									
-										C  = (/ ox+EDyX, oy+EDyY, oz+EDyZ /)
-										CValMaxDim = 0
-										cpr2 = 0d0
-										GVal = 0d0
-										do dxyz = 1, 3
-											l1 = pgto_get_l(PGTOs(i)%shelltype, PGTOs(i)%subtype, dxyz)
-											l2 = pgto_get_l(PGTOs(j)%shelltype, PGTOs(j)%subtype, dxyz)
-											cpr2 = cpr2 + ( PAB(dxyz) - C(dxyz) )**2
-											
-											do k = 0, l1+l2
-												GVal(k+1, dxyz) = G_binom_factors(k, l1, l2, PA(dxyz), PB(dxyz), C(dxyz), PAB(dxyz), gamma)
-												if ( CValMaxDim(dxyz) .lt. k ) then
-													CValMaxDim(dxyz) = k
-												end if
-											end do
-											
+								end do
+								
+								sssval = 0d0
+			
+								do vi = 0, CValMaxDim(1)
+									do vj = 0, CValMaxDim(2)
+										do vk = 0, CValMaxDim(3)
+											ssssval = GVal(vi+1, 1) * GVal(vj+1, 2) * GVal(vk+1, 3)
+											if ( abs(ssssval) .gt. 1d-20 ) then
+												sssval = sssval + ssssval * boys_func(vi+vj+vk, gamma * cpr2)
+											end if
 										end do
-										
-										sssval = 0d0
-					
-										do vi = 0, CValMaxDim(1)
-											do vj = 0, CValMaxDim(2)
-												do vk = 0, CValMaxDim(3)
-													ssssval = GVal(vi+1, 1) * GVal(vj+1, 2) * GVal(vk+1, 3)
-													if ( abs(ssssval) .gt. 1d-20 ) then
-														sssval = sssval + ssssval * boys_func(vi+vj+vk, gamma * cpr2)
-													end if
-												end do
-											end do
-										end do
-										
-										res = res + pppprefac * sssval
-										
-								end if
-							
-!							 end if
-							
+									end do
+								end do
+								
+								res = res + pppprefac * sssval
+								
+							end if
 						end do
-					
 					end if
-					
 				end do
 			end if
 		end do
-	end do	
-	
+	end do
 
 end function
 
@@ -758,7 +750,7 @@ function calc_anal_nuc_pot_point(ox, oy, oz) result(res)
 			dist = dsqrt( (ox - Atoms(j)%x + EDyX )**2 + (oy - Atoms(j)%y + EDyY )**2 + (oz - Atoms(j)%z + EDyZ )**2 )
 				
 			if ( dist .gt. 1.0d-5 ) then
-				res = res + real(Atoms(j)%charge) / dist				
+				res = res + real(Atoms(j)%charge) / dist
 			end if
 			
 		end if
@@ -779,7 +771,7 @@ subroutine calc_ligand_dens
 	write(*,*)
 	
 	!$OMP PARALLEL DO SCHEDULE(dynamic)
-	do i = 1, NLGP		
+	do i = 1, NLGP
 		call calc_density_point_dmat4(GridPoints(i)%x+EDyX, GridPoints(i)%y+EDyY, GridPoints(i)%z+EDyZ, GridPoints(i)%LDens)		
 	end do
 	!$OMP END PARALLEL DO 
