@@ -100,6 +100,24 @@ subroutine print_jobinfo
 	write(*,*)
 	write(*,'(A35,A8,I2,A)') "m_J state: ", "  | +/- ", int(15-(mJ-1)*2) , "/2 >"
 	write(*,*)
+	write(*,'(A35)', advance='no') "4f radial wave function: "
+	select case ( iRadWF )
+	      case ( 1 )
+			write(*,'(A)') "ANO-RCC-based 4f basis set for Dy(0)"
+			write(*,'(35X,A)') "as published in the original rhOver article:"
+			write(*,'(35X,A)') "M. Böhme, W. Plass, J. Comput. Chem., 2018, 39, 2697--2712"
+	      case ( 2 )
+			write(*,'(A)') "4f radial wave function for Dy(III)"
+			write(*,'(35X,A)') "as published in:"
+			write(*,'(35X,A)') "A.J. Freeman, R.E. Watson, Phys. Rev., 1962, 127, 2058--2075"
+	      case ( 3 )
+			write(*,'(A)') "4f radial wave function for Dy(III)"
+			write(*,'(35X,A)') "CASSCF/DKH2/ANO-RCC-based"
+			write(*,'(35X,A)') "M. Böhme, 2019, unpublished"
+	      case default
+			write(*,'(A)') "unknown"
+	end select  
+	write(*,*)
 	
 	if ( OMagVec .eqv. .TRUE. ) then
 	      write(*,'(A35,3F14.8)') "reference axis: ", MagX, MagY, MagZ
@@ -342,6 +360,15 @@ subroutine parse_input_file(filename)
 				
 				if ( fMRotX .lt. 0.0d0 ) then
 					fMRotX = fMRotX + pi
+				end if
+				
+			else if ( sLine == "RADIALWF" ) then
+			  
+				i = i + 1
+				read(uInp, *, iostat=iost) iRadWF
+				if ( ( nGrid .lt. 1 ) .OR. ( nGrid .gt. 3 ) )  then
+					write(*,*) "ERROR! Invalid value for 'RADIALWF'!"
+					stop
 				end if
 
 			else if ( sLine == "SETROT" ) then
@@ -712,6 +739,7 @@ subroutine set_default_values
 	NGP           =  100000
 	nGrid         =       3
 	MaxKRank      =       6
+	iRadWF        =       1
 	
 	LFPScalingFactors = 0d0
 	LFPScalingFactors(2) = 1d0

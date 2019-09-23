@@ -62,8 +62,22 @@ module global_c
      double precision, parameter :: Ahlrichs_Alpha = 0.6d0
      integer :: nGrid
      
-     ! mJ state: 1 = 15/2, 2 = 13/2, 3 = 11/2, ...
+     ! mJ state: 
+     !  1 = +/- 15/2, 
+     !  2 = +/- 13/2, 
+     !  3 = +/- 11/2,
+     !  4 = +/-  9/2,
+     !  5 = +/-  7/2,
+     !  6 = +/-  5/2,
+     !  7 = +/-  3/2,
+     !  8 = +/-  1/2
      integer :: mJ = 1
+     
+     ! radial wave function: 
+     !  1 = ANO-RCC 4f basis set for Dy(0) (as used in the original JCC article), 
+     !  2 = Freeman-Watson 1962 for Dy(III)
+     !  3 = CASSCF/DKH2/ANO-RCC-based Dy(III) (M. Böhme 2019, unpublished)
+     integer :: iRadWF = 1
      
      ! file units
      integer, parameter :: uEner = 12
