@@ -1,0 +1,27 @@
+rhOver
+
+ Title
+  [Dy(acac)3(H2O)2] (Jiang2010) with DEPP Lu-B
+
+ Job 
+  SCANOPT
+
+ ! MOLDEN file with geometry, basis sets, and MO coefficients
+ MOFile
+  Jiang2010_1-MIXED-Lu-DKH-SARC.molden
+
+ ! defines the ab initio reference axis
+ Reference
+  -0.440802 -0.888928  0.124498 
+
+ ! defines the Y/Dy center
+ AtomID
+  1  
+
+ ! removes the 4f shell contribution of the Lu(III) ion
+ Delete4f
+
+ ! more detailed output
+ Verbose 
+
+End
