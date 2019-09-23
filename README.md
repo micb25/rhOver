@@ -30,6 +30,7 @@
    `ln -s Makefiles/TARGET Makefile`
     
     where TARGET refers to the following available targets:
+    
 	   gfortran-serial		GNU gfortran
 	   gfortran-omp		GNU gfortran with OpenMP parallelization
 	   ifort-serial		Intel Fortran Compiler
