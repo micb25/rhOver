@@ -292,13 +292,21 @@ subroutine read_molden_file(filename)
 					
 					continue
 				
+				else if ( ( sBuffer .eq. "[5D]" ) .or. ( sBuffer .eq. "[7F]" ) .or. ( sBuffer .eq. "[9G]" ) ) then
+				
+					write(*,*)
+					write(*,*) "ERROR! Keyword '", trim(sBuffer), "' found!"
+					write(*,*) "Only Cartesian basis functions are currently supported!"
+					close(uMolF)
+					stop
+				
 				else if ( sBuffer .eq. "[STO]" ) then
 				
 					write(*,*)
 					write(*,*) "ERROR! STO basis sets are not supported!"
 					close(uMolF)
 					stop
-					
+				
 				else if ( sBuffer .eq. "[GTO]" ) then
 				
 					if ( mode .ne. 1 ) then
