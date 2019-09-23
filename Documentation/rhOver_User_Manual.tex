@@ -227,10 +227,13 @@ To check if the installation of the new basis set library was successfully, star
  INPUT NUMBER OF DESIRED LIBRARY (DEFAULT = 1)
 \end{lstlisting}
 
+\noindent
+At this point, the new basis set library is selected by typing '3'. Subsequently, the basis sets can be assigned to the atoms by employing the 'b' command. Note that TURBOMOLE automatically assigns basis sets with ECPs for heavy atoms. After assigning the new all-electron basis sets (see Table \ref{tab:basis}) all assigned ECPs can be deleted by entering 'ecprm all'.
+
 \begin{table}[h!]
  \centering
  \caption{Recommended basis sets for \texttt{rhOver}}
- \label{tab:targets}
+ \label{tab:basis}
   \begin{tabular}{lll}
    \toprule
     Atom                     & Basis set & Ref. \\
@@ -247,6 +250,14 @@ To check if the installation of the new basis set library was successfully, star
 \section{User's Guide}
 
 \subsection{Structure of a rhOver Input File}
+
+\begin{lstlisting}[frame=single]
+rhOver 
+ ! This is a comment
+ COMMAND
+  Argument1 Argument2 Argument3 
+End
+\end{lstlisting}
 
 \subsection{Basic Examples}
 
@@ -275,6 +286,284 @@ PARA
 
 \clearpage
 \section{Advanced Examples}
+
+\clearpage
+\section{Keywords}
+
+\subsection{ANGSTROM}
+
+\paragraph{Description:} This command specifies that input coordinates, \emph{e.g.} by the keywords \texttt{DYIII} and \texttt{PCM}, are given units of \AA ngstr\"{o}m. By default input coordinates are given in atomic units. 
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  ANGSTROM
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+  ANGSTROM
+  
+  DYIII
+   1.000 2.000 3.000
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{ATOMID}
+
+\paragraph{Description:} This command specifies the central metal ion by the atom number as found in the MOLDEN file. This keyword is not available in PCM-mode and requires a MOLDEN file. In addition, this keyword cannot be used together with the \texttt{DYIII} keyword.
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  ATOMID
+   123
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+  MOFILE
+   input-file.molden
+  
+  ATOMID
+   1
+! [...]
+End
+\end{lstlisting}
+
+
+\clearpage
+\subsection{DANGLE}
+
+\paragraph{Description:}~
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  DANGLE
+   5.0
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{DELETE4F}
+
+\paragraph{Description:}~This keyword deletes the 4f$^{14}$ contribution in the DEPP models \textbf{Lu} and \textbf{Lu--X} to obtain the altered DEPP models \textbf{Lu--B} and \textbf{Lu--BX}, respectively. This is achieved by deleting the corresponding contracted Gaussian-type orbitals.
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  DELETE4F
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+  MOFILE
+   input-file.molden
+  
+  ATOMID
+   1
+  
+  DELETE4F
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{DELETEALL}
+
+\paragraph{Description:}~This keyword deletes any contribution from all electron shells of the central metal ion. This is achieved by deleting the corresponding contracted Gaussian-type orbitals. The usage of this keyword is \emph{not} recommended!
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  DELETEALL
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+  MOFILE
+   input-file.molden
+  
+  ATOMID
+   1
+  
+  DELETEALL
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{DYIII}
+
+\paragraph{Description:} This command specifies the position of the central metal center by its Cartesian coordinates. By default input coordinates are given in atomic units. By additionally using the keyword `ANGSTROM` the input coordinates can be given in units of \AA ngstr\"{o}m. This keyword is not compatible with the \texttt{ATOMID} keyword.
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  DYIII
+   0.000 0.000 0.000
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+  MOFile
+   input-file.molden
+
+  ANGSTROM
+  
+  DYIII
+   1.000 2.000 3.000
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{END}
+
+\paragraph{Description:}~This keyword defines the end of a \texttt{rhOver} input file. Everything behind that keyword gets ignored by the program.
+
+\paragraph{Usage:}~ 
+
+\begin{lstlisting}[frame=single]
+  END
+\end{lstlisting}
+
+\paragraph{Example:}~ 
+
+\begin{lstlisting}[frame=single]
+rhOver
+! [...]
+End
+\end{lstlisting}
+
+\clearpage
+\subsection{EXPERT}
+
+\clearpage
+\subsection{GRID}
+
+\clearpage
+\subsection{GRIDPRUNING / NOGRIDPRUNING}
+
+\clearpage
+\subsection{JOB}
+
+\clearpage
+\subsection{LDAX}
+
+\clearpage
+\subsection{LFTCUTOFF}
+
+\clearpage
+\subsection{LFTONLY}
+
+\clearpage
+\subsection{LINSCANRANGE}
+
+\clearpage
+\subsection{MAXGP}
+
+\clearpage
+\subsection{MAXITER}
+
+\clearpage
+\subsection{MJ}
+
+\clearpage
+\subsection{MOFILE}
+
+\clearpage
+\subsection{MULLIKEN}
+
+\clearpage
+\subsection{NODEPPFILE}
+
+\clearpage
+\subsection{NOLFT}
+
+\clearpage
+\subsection{NOSHIELDING}
+
+\clearpage
+\subsection{NOXYZ}
+
+\clearpage
+\subsection{OLFILE}
+
+\clearpage
+\subsection{PARA}
+
+\clearpage
+\subsection{PCM}
+
+\clearpage
+\subsection{PRINTBASIS}
+
+\clearpage
+\subsection{RADIALWF}
+
+\clearpage
+\subsection{RANDOMROT / NORANDOMROT}
+
+\clearpage
+\subsection{REFERENCE}
+
+\clearpage
+\subsection{SAVEGRIDPOINTS}
+
+\clearpage
+\subsection{SCALING}
+
+\clearpage
+\subsection{SCANINC}
+
+\clearpage
+\subsection{SCANRANGE}
+
+\clearpage
+\subsection{SETROT}
+
+\clearpage
+\subsection{SETROT3D}
+
+\clearpage
+\subsection{SHIELDING}
+
+\clearpage
+\subsection{TITLE}
+
+\clearpage
+\subsection{TRJFILE}
+
+\clearpage
+\subsection{VERBOSE}
 
 \clearpage
 % \section{References}
