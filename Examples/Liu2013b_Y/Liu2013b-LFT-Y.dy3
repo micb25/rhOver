@@ -1,0 +1,25 @@
+
+rhOver
+
+ Title
+  [DyZn2(H3teabmp)2]+ (Liu2013b) with DEPP Y
+
+ Job 
+  SCANOPT
+
+ ! MOLDEN file with geometry, basis sets, and MO coefficients
+ MOFile
+  Liu2013b-MIXED-Y-DKH.molden
+
+ ! defines the ab initio reference axis 
+ Reference 
+  0.324520  0.930290  0.171020
+
+ ! defines the Y/Dy center
+ AtomID
+  1  
+
+ ! more detailed output
+ Verbose
+
+End
