@@ -299,75 +299,6 @@ subroutine init_cf_matrix_values
 
 end subroutine
 
-function ckq(k, q) result(val)
-	implicit none
-!
-	integer, intent(in) :: k, q
-	double precision :: val
-!
-	val = 0d0
-	select case ( k ) 
-		case ( 2 ) 
-			select case ( q ) 
-				case ( 2 )
-					val = 2d0 * dsqrt(2d0/3d0) / 1d0
-					return
-				case ( 1 )
-					val = - 2d0 * dsqrt(2d0/3d0) / 2d0
-					return
-				case ( 0 )
-					val = 8d0 / 4d0
-					return
-			end select
-		case ( 4 )
-			select case ( q )
-				case ( 4 )
-					val = (8d0*dsqrt(2d0/35d0)) / 1d0
-					return
-				case ( 3 )
-					val = (-16d0/dsqrt(35d0)) / 4d0
-					return
-				case ( 2 )
-					val = (32d0*dsqrt(2d0/5d0)) / 8d0
-					return
-				case ( 1 )
-					val = (-96d0/dsqrt(5d0)) / 24d0
-					return
-				case ( 0 )
-					val = 384d0 / 48d0
-					return
-			end select
-		case ( 6 )
-			select case ( q )
-				case ( 6 )
-					val = (32d0/dsqrt(231d0)) / 1d0
-					return
-				case ( 5 )
-					val = (-32d0/dsqrt(77d0)) / 6d0
-					return
-				case ( 4 )
-					val = (64d0*dsqrt(2d0/7d0)) / 12d0
-					return
-				case ( 3 )
-					val = (-64d0*dsqrt(15d0/7d0)) / 60d0
-					return
-				case ( 2 )
-					val = ((14625d0-dsqrt(213310669d0))/26d0) / 360d0
-					return
-				case ( 1 )
-					val = ((-10659d0-dsqrt(113889345d0))/6d0) / 1440d0
-					return
-				case ( 0 )
-					val = 46080d0 / 2880d0
-					return
-			end select
-	end select
-	
-	write(*,*) "ERROR! value not implemented!"
-	stop
-	
-end function
-
 subroutine calc_cf_energy(lrota, lrotb, lrotg, val)
 	use global_c
 	implicit none
@@ -449,7 +380,7 @@ subroutine calc_cf_energy_grid(lrota, lrotb, lrotg, val)
 			BRkq(k, q) = dimag(BWkq(k, abs(q))) / StevLam(k, abs(q))
 		end do
 		do q = -k, k
-						ARkq(k, q) = BRkq(k, q) / StevMultFac(k)
+			ARkq(k, q) = BRkq(k, q) / StevMultFac(k)
 		end do
 	end do
 	
