@@ -1,0 +1,18 @@
+! RHF DKH2 KeepDens AIM VeryTightSCF 
+
+%basis 
+NewGTO Lu "SARC-DKH-TZVP" end
+end
+
+%scf
+ MaxIter 999
+end
+
+%pal
+ nprocs 32
+end
+
+*xyz 3 1
+Lu    0.000000    0.000000    0.000000
+*
+
