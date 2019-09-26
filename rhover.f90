@@ -505,7 +505,15 @@ subroutine parse_input_file(filename)
 			else if ( sLine == "EXPERT" ) then
 			  
 				OExpert = .TRUE.
-			
+				
+			else if ( sLine == "TURBOMOLE" ) then
+			  
+				OTurbomole = .TRUE.
+				
+			else if ( sLine == "NOTURBOMOLE" ) then
+			  
+				OTurbomole = .FALSE.
+				OFNoTurbomole = .TRUE.
 
 			else if ( sLine == "NODEPPFILE" ) then
 			  
@@ -767,6 +775,8 @@ subroutine set_default_values
 	OPCM          = .FALSE.
 	OSternheimer  = .FALSE.
 	OExportGPs    = .FALSE.
+	OTurbomole    = .FALSE.
+	OFNoTurbomole = .FALSE.
 	
 #ifdef _OPENMP
 	omp_threads   = omp_get_max_threads()

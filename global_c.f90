@@ -95,6 +95,7 @@ module global_c
      logical :: OPCM, OSternheimer
      logical :: OExportGPs
      logical :: OUHF
+     logical :: OTurbomole, OFNoTurbomole
      
      ! LAPACK
      logical :: LAPACKInit = .FALSE.
