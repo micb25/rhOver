@@ -367,7 +367,7 @@ subroutine read_molden_file(filename)
 												CGTOs(NCGTO)%shelltype = 5
 											case default
 												write(*,*)
-												write(*,*) "ERROR! Only shell type S,P,D,F,G are supported!"
+												write(*,*) "ERROR! Only shell types S, P, D, F, G are supported!"
 												close(uMolF)
 												stop
 										end select
@@ -880,6 +880,42 @@ subroutine print_pgto_info
 					case default
 						subtype = "???"
 				end select
+			case ( 5 )
+				stype = "g"
+				select case ( PGTOs(i)%subtype ) 
+					case ( 1 )
+						subtype = "xxxx"
+					case ( 2 )
+						subtype = "yyyy"
+					case ( 3 )
+						subtype = "zzzz"
+					case ( 4 )
+						subtype = "xxxy"
+					case ( 5 )
+						subtype = "xxxz"
+					case ( 6 )
+						subtype = "xyyy"
+					case ( 7 )
+						subtype = "yyyz"
+					case ( 8 )
+						subtype = "xzzz"
+					case ( 9 )
+						subtype = "yzzz"
+					case ( 10 )
+						subtype = "xxyy"
+					case ( 11 )
+						subtype = "xxzz"
+					case ( 12 )
+						subtype = "yyzz"
+					case ( 13 )
+						subtype = "xxyz"
+					case ( 14 )
+						subtype = "xyyz"
+					case ( 15 )
+						subtype = "xyzz"
+					case default
+						subtype = "????"
+				end select
 			case default
 				stype = "?"
 		
@@ -981,6 +1017,42 @@ subroutine print_cgto_info
 						subtype = "xyz"
 					case default
 						subtype = "???"
+				end select
+			case ( 5 )
+				stype = "g"
+				select case ( CGTOs(i)%subtype ) 
+					case ( 1 )
+						subtype = "xxxx"
+					case ( 2 )
+						subtype = "yyyy"
+					case ( 3 )
+						subtype = "zzzz"
+					case ( 4 )
+						subtype = "xxxy"
+					case ( 5 )
+						subtype = "xxxz"
+					case ( 6 )
+						subtype = "xyyy"
+					case ( 7 )
+						subtype = "yyyz"
+					case ( 8 )
+						subtype = "xzzz"
+					case ( 9 )
+						subtype = "yzzz"
+					case ( 10 )
+						subtype = "xxyy"
+					case ( 11 )
+						subtype = "xxzz"
+					case ( 12 )
+						subtype = "yyzz"
+					case ( 13 )
+						subtype = "xxyz"
+					case ( 14 )
+						subtype = "xyyz"
+					case ( 15 )
+						subtype = "xyzz"
+					case default
+						subtype = "????"
 				end select
 			case default
 				stype = "?"
